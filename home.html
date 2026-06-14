@@ -90,43 +90,9 @@
       pointer-events: none;
     }
 
-    /* Cart badge */
-    .cart-nav-btn { position: relative; }
-    .cart-badge {
-      position: absolute;
-      top: -6px; right: -8px;
-      width: 18px; height: 18px;
-      background: var(--accent);
-      color: #fff;
-      font-size: 10px;
-      font-weight: 800;
-      border-radius: 50%;
-      display: none;
-      align-items: center;
-      justify-content: center;
-    }
+    /* Cart badge — see css/style.css (.cart-nav-btn, .cart-badge) */
 
-    /* KOKO styling on product cards */
-    .koko-price-block { display: flex; flex-direction: column; gap: 4px; margin-bottom: 8px; }
-    .koko-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 5px;
-      background: linear-gradient(135deg, #8B5CF6, #6D28D9);
-      color: #fff;
-      font-size: 10px;
-      font-weight: 800;
-      letter-spacing: 0.04em;
-      padding: 3px 8px;
-      border-radius: 20px;
-      white-space: nowrap;
-      width: fit-content;
-    }
-    .koko-instalment {
-      font-size: 11px;
-      color: #7c3aed;
-      font-weight: 600;
-    }
+    /* KOKO styling on product cards — see css/style.css */
 
     @media (max-width: 768px) {
       .hero > .container { padding-top: calc(var(--nav-h) + 40px); padding-bottom: 60px; }
@@ -209,10 +175,6 @@
           <a class="btn btn-primary" href="products.html">
             <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/></svg>
             Browse Products
-          </a>
-          <a class="btn btn-outline" href="cart.html">
-            <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4zM3 6h18M16 10a4 4 0 01-8 0"/></svg>
-            View Cart
           </a>
         </div>
 
@@ -583,12 +545,9 @@ function renderFeatured() {
         ${availBadge(p.availability)}
       </div>
       <div class="product-card-footer">
-        <button class="btn btn-primary btn-sm" onclick="event.stopPropagation();window.location.href='products.html?product=${p.id}'">
+        <button class="btn btn-primary btn-sm" style="width:100%;justify-content:center;" onclick="event.stopPropagation();window.location.href='products.html?product=${p.id}'">
           View Details
           <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-        </button>
-        <button class="btn btn-outline-dark btn-sm" onclick="event.stopPropagation();addToCart('${p.id}')">
-          🛒
         </button>
       </div>
     </div>`;

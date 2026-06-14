@@ -77,22 +77,7 @@
       .detail-modal-info-col { padding: 20px; max-height: none; }
     }
 
-    /* KOKO Badge */
-    .koko-badge {
-      display: inline-flex;
-      align-items: center;
-      gap: 5px;
-      background: linear-gradient(135deg, #8B5CF6, #6D28D9);
-      color: #fff;
-      font-size: 10px;
-      font-weight: 800;
-      letter-spacing: 0.04em;
-      padding: 4px 10px;
-      border-radius: 20px;
-      white-space: nowrap;
-      width: fit-content;
-    }
-    .koko-price-block { display: flex; flex-direction: column; gap: 4px; margin-bottom: 8px; }
+    /* KOKO Badge — see css/style.css for .koko-badge / .koko-price-block */
     .koko-modal-block {
       background: linear-gradient(135deg, #ede9fe, #f5f3ff);
       border: 1px solid #c4b5fd;
@@ -162,44 +147,9 @@
     .cat-chip:hover { border-color: var(--accent); color: var(--accent); background: var(--accent-light); }
     .cat-chip.active { background: var(--accent); border-color: var(--accent); color: #fff; box-shadow: 0 4px 14px rgba(255,77,0,0.25); }
 
-    /* Cart badge */
-    .cart-nav-btn { position: relative; }
-    .cart-badge {
-      position: absolute;
-      top: -6px; right: -8px;
-      width: 18px; height: 18px;
-      background: var(--accent);
-      color: #fff;
-      font-size: 10px;
-      font-weight: 800;
-      border-radius: 50%;
-      display: none;
-      align-items: center;
-      justify-content: center;
-    }
+    /* Cart badge — see css/style.css */
 
-    /* Toast */
-    .cart-toast {
-      position: fixed;
-      bottom: 28px;
-      left: 50%;
-      transform: translateX(-50%) translateY(20px);
-      background: #1a1a2e;
-      color: #fff;
-      padding: 12px 22px;
-      border-radius: 100px;
-      font-size: 14px;
-      font-weight: 500;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      opacity: 0;
-      transition: all 0.3s;
-      z-index: 9999;
-      white-space: nowrap;
-      box-shadow: 0 8px 32px rgba(0,0,0,0.3);
-    }
-    .cart-toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+    /* Toast — see css/style.css */
   </style>
 </head>
 <body>
@@ -429,12 +379,9 @@ function renderProductCard(p, i) {
         ${availBadge(p.availability)}
       </div>
       <div class="product-card-footer">
-        <button class="btn btn-primary btn-sm" onclick="event.stopPropagation();openDetail('${p.id}')">
+        <button class="btn btn-primary btn-sm" style="width:100%;justify-content:center;" onclick="event.stopPropagation();openDetail('${p.id}')">
           View Details
           <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-        </button>
-        <button class="btn btn-outline-dark btn-sm" onclick="event.stopPropagation();addToCart('${p.id}')" title="Add to cart">
-          🛒
         </button>
       </div>
     </div>`;
@@ -506,12 +453,9 @@ function clearFilters() {
 }
 
 // ── Product Detail Modal ──
-let currentProduct = null;
-
 function openDetail(productId) {
   const p = PRODUCTS.find(pr => pr.id === productId);
   if (!p) return;
-  currentProduct = p;
 
   const bgIdx  = PRODUCTS.indexOf(p);
   const images = p.images || ['', '', ''];
@@ -570,19 +514,16 @@ function openDetail(productId) {
     : '';
 
   // Actions
-  const msg = encodeURIComponent(`Hello, I would like more information about the ${p.name}.`);
+  const buyMsg = encodeURIComponent(`Hello, I would like to buy the ${p.name} (Rs. ${p.price ? p.price.toLocaleString('en-LK') : 'N/A'}). Please confirm availability and delivery details.`);
+  const outOfStock = p.availability === 'Out of Stock';
   document.getElementById('detailActions').innerHTML = `
-    <button class="btn btn-primary" onclick="addToCart('${p.id}');closeDetail();">
+    <button class="btn btn-primary" ${outOfStock ? 'disabled style="opacity:.5;cursor:not-allowed;"' : `onclick="addToCart('${p.id}');closeDetail();"`}>
       <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4zM3 6h18M16 10a4 4 0 01-8 0"/></svg>
-      Add to Cart
+      ${outOfStock ? 'Out of Stock' : 'Add to Cart'}
     </button>
-    <a class="btn btn-whatsapp" href="https://wa.me/94740034125?text=${msg}" target="_blank" rel="noopener">
+    <a class="btn btn-whatsapp" href="https://wa.me/94740034125?text=${buyMsg}" target="_blank" rel="noopener">
       <svg width="15" height="15" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.123.553 4.116 1.52 5.845L0 24l6.335-1.648A11.95 11.95 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.797 9.797 0 01-4.988-1.362l-.357-.212-3.758.977.999-3.658-.233-.376A9.79 9.79 0 012.182 12C2.182 6.57 6.57 2.182 12 2.182S21.818 6.57 21.818 12 17.43 21.818 12 21.818z"/></svg>
-      Ask on WhatsApp
-    </a>
-    <a class="btn btn-outline-dark" href="tel:+94740034125">
-      <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 8.81 19.79 19.79 0 01.01 2.18C.01 1.07.99.01 2.1.01h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.91 7.91a16 16 0 006.18 6.18l1.27-.45a2 2 0 012.11.45c.907.339 1.85.573 2.81.7A2 2 0 0121.99 16.92z"/></svg>
-      Call Now
+      Buy Now via WhatsApp
     </a>`;
 
   document.getElementById('detailOverlay').classList.add('open');

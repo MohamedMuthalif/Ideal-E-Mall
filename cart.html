@@ -199,45 +199,9 @@
     .cart-empty p { color: var(--text-secondary); }
     .cart-empty a { color: var(--accent); text-decoration: underline; }
 
-    /* ── Toast ── */
-    .cart-toast {
-      position: fixed;
-      bottom: 28px;
-      left: 50%;
-      transform: translateX(-50%) translateY(20px);
-      background: #1a1a2e;
-      color: #fff;
-      padding: 12px 22px;
-      border-radius: 100px;
-      font-size: 14px;
-      font-weight: 500;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      opacity: 0;
-      transition: all 0.3s;
-      z-index: 9999;
-      white-space: nowrap;
-      box-shadow: 0 8px 32px rgba(0,0,0,0.3);
-    }
-    .cart-toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
+    /* Toast — see css/style.css */
 
-    /* ── Cart badge on nav ── */
-    .cart-nav-btn { position: relative; }
-    .cart-badge {
-      position: absolute;
-      top: -6px; right: -6px;
-      width: 18px; height: 18px;
-      background: var(--accent);
-      color: #fff;
-      font-size: 10px;
-      font-weight: 800;
-      border-radius: 50%;
-      display: none;
-      align-items: center;
-      justify-content: center;
-      line-height: 1;
-    }
+    /* Cart badge on nav — see css/style.css */
   </style>
 </head>
 <body>
@@ -354,17 +318,7 @@ document.getElementById('backToTop').addEventListener('click', () =>
   window.scrollTo({ top: 0, behavior: 'smooth' })
 );
 
-// Wire badge to nav
-function updateCartBadge() {
-  try {
-    const cart = JSON.parse(sessionStorage.getItem('idealCart') || '[]');
-    const total = cart.reduce((s, i) => s + i.qty, 0);
-    document.querySelectorAll('.cart-badge').forEach(el => {
-      el.textContent = total;
-      el.style.display = total > 0 ? 'flex' : 'none';
-    });
-  } catch {}
-}
+// Wire badge to nav (handled by cart.js, just trigger render)
 
 renderCartPage();
 </script>
