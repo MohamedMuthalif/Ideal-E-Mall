@@ -951,16 +951,25 @@ main { padding-top: var(--nav-h); }
 }
 
 @media (max-width: 768px) {
-  :root { --nav-h: 64px; }
-  .section { padding: 72px 0; }
-  .hero-inner { grid-template-columns: 1fr; gap: 40px; }
+  :root { --nav-h: 60px; }
+  .container { padding: 0 18px; }
+  .section { padding: 60px 0; }
+  .section-title { font-size: 28px; }
+  .hero { padding: 100px 0 64px; }
+  .hero-inner { grid-template-columns: 1fr; gap: 36px; }
   .hero-visual { display: none; }
-  .hero-title { font-size: 38px; }
-  .hero-desc { font-size: 16px; }
-  .products-grid { grid-template-columns: repeat(2, 1fr); }
+  .hero-title { font-size: 34px; line-height: 1.1; }
+  .hero-desc { font-size: 15px; }
+  .hero-badge { font-size: 11px; padding: 7px 14px; }
+  .hero-stats { gap: 16px; flex-wrap: wrap; }
+  .hero-stat strong { font-size: 20px; }
+  .hero-stat span { font-size: 11px; }
+  .products-grid { grid-template-columns: repeat(2, 1fr); gap: 14px; }
+  .product-card-name { font-size: 14px; }
+  .product-card-desc { font-size: 12px; }
   .why-grid { grid-template-columns: repeat(2, 1fr); }
   .reviews-grid { grid-template-columns: 1fr; }
-  .contact-inner { grid-template-columns: 1fr; gap: 40px; }
+  .contact-inner { grid-template-columns: 1fr; gap: 36px; }
   .about-inner { grid-template-columns: 1fr; }
   .about-visual-wrap { display: none; }
   .footer-inner { grid-template-columns: 1fr 1fr; }
@@ -968,23 +977,161 @@ main { padding-top: var(--nav-h); }
   .nav-links { display: none; }
   .nav-cta { display: none; }
   .product-detail-inner { grid-template-columns: 1fr; }
-  .hero-stats { gap: 20px; }
+  /* Video section mobile */
+  .hero-video-section { padding: 40px 0 52px; }
+  .hero-video-box { border-radius: var(--radius-lg); }
+  .video-placeholder-text { font-size: 17px; }
+  .video-play-ring { width: 64px; height: 64px; }
+  /* Categories strip mobile */
+  .categories-strip { gap: 8px; padding-bottom: 4px; }
+  .category-pill { padding: 8px 14px; font-size: 12px; }
+  /* Contact */
+  .contact-cta-buttons { flex-direction: column; }
+  .contact-cta-buttons .btn { width: 100%; justify-content: center; }
+  /* Why us */
+  .why-card { padding: 24px 20px; }
 }
 
 @media (max-width: 480px) {
-  .products-grid { grid-template-columns: 1fr; }
+  .container { padding: 0 14px; }
+  .products-grid { grid-template-columns: repeat(2, 1fr); gap: 10px; }
+  .product-card-body { padding: 10px 12px; }
+  .product-card-img { height: 140px; }
+  .product-card-name { font-size: 13px; }
+  .product-card-desc { display: none; }
+  .product-card-price { font-size: 14px; }
+  .koko-badge { font-size: 9px; padding: 2px 6px; }
   .why-grid { grid-template-columns: 1fr; }
   .footer-inner { grid-template-columns: 1fr; }
-  .hero-title { font-size: 32px; }
-  .section-title { font-size: 28px; }
+  .hero-title { font-size: 30px; }
+  .section-title { font-size: 24px; }
   .hero-actions { flex-direction: column; width: 100%; }
   .hero-actions .btn { width: 100%; justify-content: center; }
-  .hero-stats { flex-wrap: wrap; gap: 16px; }
   .hero-stat { border: none; padding: 0; margin: 0; min-width: 80px; }
-  .categories-strip { gap: 8px; }
-  .category-pill { padding: 8px 14px; font-size: 13px; }
-  .contact-cta-buttons { flex-direction: column; }
-  .contact-cta-buttons .btn { width: 100%; justify-content: center; }
+  .btn { padding: 12px 20px; font-size: 14px; }
+  .review-card { padding: 22px 18px; }
+  /* Video */
+  .hero-video-section { padding: 30px 0 40px; }
+  .video-placeholder-sub { font-size: 11px; }
+  /* Footer */
+  .footer-bottom { flex-direction: column; gap: 6px; text-align: center; }
+  .footer-bottom p { font-size: 12px; }
+}
+
+/* ============ HERO VIDEO SECTION ============ */
+.hero-video-section {
+  background: #fff;
+  padding: 60px 0 72px;
+  border-bottom: 1px solid var(--border);
+}
+.hero-video-wrapper {
+  max-width: 860px;
+  margin: 0 auto;
+  text-align: center;
+}
+.hero-video-label {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--accent);
+  margin-bottom: 22px;
+}
+.hero-video-dot {
+  width: 8px;
+  height: 8px;
+  background: var(--accent);
+  border-radius: 50%;
+  animation: pulse 1.8s ease-in-out infinite;
+}
+.hero-video-box {
+  width: 100%;
+  aspect-ratio: 16/9;
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+  box-shadow: var(--shadow-lg);
+  border: 2px solid var(--border);
+  background: #0a0a0a;
+}
+.hero-video-box video,
+.hero-video-box iframe {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border: none;
+  display: block;
+}
+.video-placeholder {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+}
+.video-placeholder-inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 16px;
+  padding: 32px;
+}
+.video-play-ring {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  background: rgba(255,77,0,0.15);
+  border: 2px solid rgba(255,77,0,0.5);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--accent);
+}
+.video-placeholder-text {
+  font-family: var(--font-display);
+  font-size: 20px;
+  font-weight: 700;
+  color: #fff;
+}
+.video-placeholder-sub {
+  font-size: 13px;
+  color: rgba(255,255,255,0.45);
+  max-width: 340px;
+  line-height: 1.5;
+}
+.video-placeholder-sub code {
+  background: rgba(255,255,255,0.1);
+  padding: 1px 6px;
+  border-radius: 4px;
+  font-family: monospace;
+  font-size: 12px;
+  color: var(--teal);
+}
+
+/* ============ KOKO BADGE ============ */
+.koko-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  background: linear-gradient(135deg, #8B5CF6, #6D28D9);
+  color: #fff;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  padding: 3px 8px;
+  border-radius: 20px;
+  margin-top: 5px;
+  white-space: nowrap;
+}
+.koko-badge-icon { font-size: 10px; }
+.koko-price-block {
+  display: flex;
+  flex-direction: column;
+  gap: 3px;
+  margin-bottom: 8px;
 }
 
 /* ── PRICE ── */

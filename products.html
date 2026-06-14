@@ -81,6 +81,23 @@
       .detail-modal-info-col { padding: 20px; max-height: none; }
     }
 
+    /* ── KOKO Badge ── */
+    .koko-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      background: linear-gradient(135deg, #8B5CF6, #6D28D9);
+      color: #fff;
+      font-size: 10px;
+      font-weight: 800;
+      letter-spacing: 0.04em;
+      padding: 4px 10px;
+      border-radius: 20px;
+      margin-top: 4px;
+      white-space: nowrap;
+    }
+    .koko-price-block { display: flex; flex-direction: column; gap: 4px; margin-bottom: 8px; }
+
     /* ── Main image viewer ── */
     .detail-img-main {
       width: 100%;
@@ -286,6 +303,7 @@
         </div>
         <div id="detailAvailability"></div>
         <div class="detail-price" id="detailPrice"></div>
+        <span class="koko-badge" id="productKoko" style="display:none;margin-bottom:12px;">💳 Up to 10% extra with KOKO</span>
         <p class="product-detail-desc" id="detailDesc"></p>
         <div class="specs-section">
           <div class="specs-title">Specifications</div>
@@ -399,7 +417,7 @@ function renderProductCard(p, i) {
         <div class="product-card-brand">${p.brand}</div>
         <div class="product-card-name">${p.name}</div>
         <div class="product-card-desc">${p.shortDesc}</div>
-        ${p.price ? `<div class="product-card-price">Rs. ${p.price.toLocaleString('en-LK')}</div>` : ''}
+        ${p.price ? `<div class="koko-price-block"><div class="product-card-price">Rs. ${p.price.toLocaleString('en-LK')}</div><span class="koko-badge">💳 Up to 10% extra with KOKO</span></div>` : ''}
         ${availBadge(p.availability)}
       </div>
       <div class="product-card-footer">
@@ -527,6 +545,8 @@ function openDetail(productId) {
   // ── Price ──
   const priceEl = document.getElementById('detailPrice');
   priceEl.textContent = p.price ? `Rs. ${p.price.toLocaleString('en-LK')}` : '';
+  const kokoEl = document.getElementById('productKoko');
+  if (kokoEl) kokoEl.style.display = p.price ? 'inline-flex' : 'none';
 
   // ── Description ──
   document.getElementById('detailDesc').textContent = p.description;
