@@ -1,0 +1,596 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Products — Ideal E-Mall | Kitchen Appliances & Home Essentials</title>
+  <meta name="description" content="Browse our full range of kitchen appliances and home essentials at Ideal E-Mall, Wellampitiya, Sri Lanka. Gas hobs, stand mixers, coffee machines, storage racks and more." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+  <style>
+    /* ── Modal overlay ── */
+    .detail-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.72);
+      z-index: 2000;
+      align-items: flex-start;
+      justify-content: center;
+      padding: 24px 16px;
+      overflow-y: auto;
+      backdrop-filter: blur(5px);
+    }
+    .detail-overlay.open { display: flex; }
+
+    .detail-modal {
+      background: #fff;
+      border-radius: var(--radius-xl);
+      max-width: 920px;
+      width: 100%;
+      margin: auto;
+      position: relative;
+      animation: modalIn 0.32s var(--transition);
+      overflow: hidden;
+    }
+    @keyframes modalIn {
+      from { opacity: 0; transform: translateY(20px) scale(0.98); }
+      to   { opacity: 1; transform: translateY(0) scale(1); }
+    }
+
+    .detail-modal-close {
+      position: absolute;
+      top: 14px; right: 14px;
+      width: 34px; height: 34px;
+      border-radius: 50%;
+      background: var(--border-light);
+      border: none;
+      cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 16px;
+      color: var(--text-secondary);
+      transition: all 0.2s;
+      z-index: 10;
+      font-weight: 700;
+    }
+    .detail-modal-close:hover { background: var(--accent); color: #fff; }
+
+    .detail-modal-inner {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+    }
+    .detail-modal-img-col {
+      padding: 32px;
+      border-right: 1px solid var(--border-light);
+      background: var(--bg);
+    }
+    .detail-modal-info-col {
+      padding: 32px;
+      display: flex;
+      flex-direction: column;
+      gap: 14px;
+      overflow-y: auto;
+      max-height: 85vh;
+    }
+
+    @media (max-width: 680px) {
+      .detail-modal-inner { grid-template-columns: 1fr; }
+      .detail-modal-img-col { border-right: none; border-bottom: 1px solid var(--border-light); padding: 20px; }
+      .detail-modal-info-col { padding: 20px; max-height: none; }
+    }
+
+    /* ── Main image viewer ── */
+    .detail-img-main {
+      width: 100%;
+      aspect-ratio: 4/3;
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 96px;
+      transition: opacity 0.2s;
+      background: var(--border-light);
+    }
+    .detail-img-main img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      background: #fff;
+    }
+
+    /* ── 3 thumbnail slots ── */
+    .detail-thumbs {
+      display: flex;
+      gap: 10px;
+      margin-top: 14px;
+    }
+    /*
+      THUMBNAIL SLOT STRUCTURE:
+      Each product has 3 image slots (images[0], images[1], images[2]).
+      - Slot with an image  → shows the photo; clicking it swaps the main view
+      - Slot without image  → shows a dashed "add image" placeholder
+      To add an image later: fill in the path in data.js images[] array.
+    */
+    .detail-thumb {
+      width: 72px;
+      height: 72px;
+      border-radius: var(--radius-sm);
+      border: 2px solid var(--border);
+      cursor: pointer;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 22px;
+      transition: all 0.2s;
+      flex-shrink: 0;
+      background: #fff;
+    }
+    .detail-thumb img { width: 100%; height: 100%; object-fit: contain; }
+    .detail-thumb.active  { border-color: var(--accent); box-shadow: 0 0 0 2px rgba(255,77,0,0.2); }
+    .detail-thumb:hover:not(.thumb-empty) { border-color: var(--accent); }
+
+    /* Empty slot: dashed placeholder you can fill later */
+    .detail-thumb.thumb-empty {
+      border: 2px dashed var(--border);
+      cursor: default;
+      opacity: 0.45;
+      font-size: 18px;
+      color: var(--text-muted);
+    }
+
+    /* ── Price in modal ── */
+    .detail-price {
+      font-size: 24px;
+      font-weight: 800;
+      color: var(--accent);
+      font-family: var(--font-display);
+    }
+
+    /* ── Category chips ── */
+    .category-chips-wrap {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+      margin-top: 20px;
+    }
+    .cat-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 16px;
+      border-radius: 40px;
+      background: #fff;
+      border: 2px solid var(--border);
+      cursor: pointer;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--text-secondary);
+      transition: all 0.22s var(--transition);
+      white-space: nowrap;
+    }
+    .cat-chip:hover { border-color: var(--accent); color: var(--accent); background: var(--accent-light); }
+    .cat-chip.active { background: var(--accent); border-color: var(--accent); color: #fff; box-shadow: 0 4px 14px rgba(255,77,0,0.25); }
+  </style>
+</head>
+<body>
+
+<!-- ── Navbar ── -->
+<nav class="navbar" id="navbar">
+  <div class="nav-inner">
+    <a class="nav-logo" href="home.html">
+      <div class="nav-logo-icon">IE</div>
+      <div class="nav-logo-text">Ideal <span>E-Mall</span></div>
+    </a>
+    <div class="nav-links">
+      <a class="nav-link" href="home.html">Home</a>
+      <a class="nav-link active" href="products.html">Products</a>
+      <a class="nav-link" href="home.html#about">About</a>
+      <a class="nav-link" href="home.html#contact">Contact</a>
+    </div>
+    <div class="nav-cta">
+      <a class="btn btn-primary btn-sm" href="https://wa.me/94740034125?text=Hello%2C%20I%20would%20like%20more%20information%20about%20your%20products." target="_blank" rel="noopener">
+        <svg width="14" height="14" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.123.553 4.116 1.52 5.845L0 24l6.335-1.648A11.95 11.95 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.797 9.797 0 01-4.988-1.362l-.357-.212-3.758.977.999-3.658-.233-.376A9.79 9.79 0 012.182 12C2.182 6.57 6.57 2.182 12 2.182S21.818 6.57 21.818 12 17.43 21.818 12 21.818z"/></svg>
+        WhatsApp
+      </a>
+    </div>
+    <button class="nav-mobile-toggle" id="mobileToggle" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+  </div>
+</nav>
+
+<div class="mobile-nav" id="mobileNav">
+  <a class="nav-link" href="home.html">Home</a>
+  <a class="nav-link active" href="products.html">Products</a>
+  <a class="nav-link" href="home.html#about">About</a>
+  <a class="nav-link" href="home.html#contact">Contact</a>
+</div>
+
+<main>
+
+<!-- ── Products Header ── -->
+<div class="products-page-header">
+  <div class="container">
+    <span class="accent-label">Our Collection</span>
+    <h1>Browse All Products</h1>
+    <p class="body-text">Find the right kitchen appliance or home essential for your needs.</p>
+
+    <div class="products-toolbar">
+      <div class="products-search">
+        <span class="products-search-icon">
+          <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="11" cy="11" r="8"/><path d="m21 21-4.35-4.35"/></svg>
+        </span>
+        <input type="text" id="productsSearchInput" placeholder="Search products, brands…" autocomplete="off" />
+      </div>
+      <select class="filter-select" id="brandFilter"><option value="">All Brands</option></select>
+      <select class="filter-select" id="availabilityFilter">
+        <option value="">All Availability</option>
+        <option value="In Stock">In Stock</option>
+        <option value="Order Basis">Order Basis</option>
+        <option value="Out of Stock">Out of Stock</option>
+      </select>
+      <span class="products-count" id="productsCount"></span>
+    </div>
+
+    <div class="category-chips-wrap" id="categoryChips"></div>
+  </div>
+</div>
+
+<!-- ── Products Grid ── -->
+<div class="container section-sm">
+  <div class="products-grid" id="productsGrid"></div>
+</div>
+
+</main>
+
+
+<!-- ════════════════════════════════════════
+     PRODUCT DETAIL MODAL
+     ════════════════════════════════════════ -->
+<div class="detail-overlay" id="detailOverlay" onclick="handleOverlayClick(event)">
+  <div class="detail-modal" id="detailModal">
+
+    <button class="detail-modal-close" onclick="closeDetail()" aria-label="Close">✕</button>
+
+    <div class="detail-modal-inner">
+
+      <!-- LEFT: Images -->
+      <div class="detail-modal-img-col">
+
+        <!-- Main image viewer -->
+        <div class="detail-img-main" id="detailImgMain"></div>
+
+        <!--
+          THUMBNAIL SLOTS (3 per product)
+          ─────────────────────────────────
+          Slot 1 (images[0]) — main/primary photo
+          Slot 2 (images[1]) — second angle  ← fill path in data.js when ready
+          Slot 3 (images[2]) — detail shot   ← fill path in data.js when ready
+
+          Empty slots show a dashed placeholder automatically.
+          No code changes needed — just update the path in data.js.
+        -->
+        <div class="detail-thumbs" id="detailThumbs"></div>
+
+      </div>
+
+      <!-- RIGHT: Info -->
+      <div class="detail-modal-info-col">
+        <div>
+          <div class="product-detail-brand" id="detailBrand"></div>
+          <h2 class="product-detail-name" id="detailName"></h2>
+        </div>
+        <div id="detailAvailability"></div>
+        <div class="detail-price" id="detailPrice"></div>
+        <p class="product-detail-desc" id="detailDesc"></p>
+        <div class="specs-section">
+          <div class="specs-title">Specifications</div>
+          <table class="specs-table" id="detailSpecs"></table>
+        </div>
+        <div class="product-detail-actions" id="detailActions"></div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <div class="footer-logo">
+          <div class="footer-logo-icon">IE</div>
+          <div class="footer-logo-text">Ideal <span>E-Mall</span></div>
+        </div>
+        <p>Your trusted kitchen appliances and home essentials store in Wellampitiya, Sri Lanka.</p>
+      </div>
+      <div>
+        <div class="footer-col-title">Quick Links</div>
+        <div class="footer-links">
+          <a class="footer-link" href="home.html">Home</a>
+          <a class="footer-link" href="products.html">Products</a>
+          <a class="footer-link" href="home.html#about">About Us</a>
+          <a class="footer-link" href="home.html#contact">Contact</a>
+        </div>
+      </div>
+      <div>
+        <div class="footer-col-title">Contact</div>
+        <div class="footer-contact-item">📍 <a href="https://www.google.com/maps/place/Ideal+E-Mall/@6.9444964,79.8776654,17z" target="_blank" rel="noopener">79 Avissawella Road, Wellampitiya</a></div>
+        <div class="footer-contact-item">📞 <a href="tel:+94740034125">074 003 4125</a></div>
+        <div class="footer-contact-item">💬 <a href="https://wa.me/94740034125" target="_blank" rel="noopener" style="color:#25D366;">WhatsApp</a></div>
+        <div class="footer-contact-item">📘 <a href="https://web.facebook.com/IdealEMall/" target="_blank" rel="noopener">Facebook</a></div>
+        <div class="footer-contact-item">📸 <a href="https://www.instagram.com/idealemall/" target="_blank" rel="noopener">Instagram</a></div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2025 Ideal E-Mall. All rights reserved. Wellampitiya, Sri Lanka.</p>
+      <p>Built for quality shopping experiences.</p>
+    </div>
+  </div>
+</footer>
+
+<button class="back-to-top" id="backToTop" aria-label="Back to top">
+  <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M5 15l7-7 7 7"/></svg>
+</button>
+
+<script src="js/data.js"></script>
+<script>
+'use strict';
+
+// ── State ──
+let activeCategory = '';
+let searchQuery    = '';
+let selectedBrand  = '';
+let selectedAvail  = '';
+
+// ── Navbar ──
+const navbar = document.getElementById('navbar');
+window.addEventListener('scroll', () => {
+  navbar.classList.toggle('scrolled', window.scrollY > 20);
+  document.getElementById('backToTop').classList.toggle('visible', window.scrollY > 400);
+});
+document.getElementById('mobileToggle').addEventListener('click', () =>
+  document.getElementById('mobileNav').classList.toggle('open')
+);
+document.getElementById('backToTop').addEventListener('click', () =>
+  window.scrollTo({ top: 0, behavior: 'smooth' })
+);
+
+// ── Scroll reveal ──
+function initScrollReveal() {
+  const items = document.querySelectorAll('.reveal:not(.revealed)');
+  if (!items.length) return;
+  const obs = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('revealed'); obs.unobserve(e.target); } });
+  }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+  items.forEach(el => obs.observe(el));
+}
+
+// ── Helpers ──
+const bgColors = ['bg-orange','bg-teal','bg-violet','bg-gold','bg-green','bg-rose','bg-blue'];
+function getBgColor(i) { return bgColors[i % bgColors.length]; }
+
+function getMainImage(p) {
+  return (p.images && p.images[0]) ? p.images[0] : null;
+}
+
+function availBadge(avail) {
+  if (avail === 'In Stock')    return `<span class="product-card-availability avail-in">● In Stock</span>`;
+  if (avail === 'Order Basis') return `<span class="product-card-availability avail-order">● Order Basis</span>`;
+  return `<span class="product-card-availability avail-out">● Out of Stock</span>`;
+}
+
+// ── Product card ──
+function renderProductCard(p, i) {
+  const img = getMainImage(p);
+  return `
+    <div class="product-card" onclick="openDetail('${p.id}')">
+      ${p.featured ? '<div class="featured-badge">Featured</div>' : ''}
+      <div class="product-card-img ${getBgColor(i)}">
+        ${img ? `<img src="${img}" alt="${p.name}" loading="lazy" />` : (p.emoji || '📦')}
+      </div>
+      <div class="product-card-body">
+        <div class="product-card-brand">${p.brand}</div>
+        <div class="product-card-name">${p.name}</div>
+        <div class="product-card-desc">${p.shortDesc}</div>
+        ${p.price ? `<div class="product-card-price">Rs. ${p.price.toLocaleString('en-LK')}</div>` : ''}
+        ${availBadge(p.availability)}
+      </div>
+      <div class="product-card-footer">
+        <button class="btn btn-primary btn-sm" onclick="event.stopPropagation();openDetail('${p.id}')">
+          View Details
+          <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </button>
+      </div>
+    </div>`;
+}
+
+// ── Category chips ──
+function renderCategoryChips() {
+  const wrap = document.getElementById('categoryChips');
+  if (!wrap) return;
+  let html = `<button class="cat-chip ${activeCategory==='' ? 'active' : ''}" onclick="setCat('')">🏠 All</button>`;
+  CATEGORIES.forEach(cat => {
+    html += `<button class="cat-chip ${activeCategory===cat.id ? 'active' : ''}" onclick="setCat('${cat.id}')">${cat.icon} ${cat.name}</button>`;
+  });
+  wrap.innerHTML = html;
+}
+function setCat(id) { activeCategory = id; renderCategoryChips(); renderGrid(); }
+
+// ── Filters ──
+function initFilters() {
+  const bf = document.getElementById('brandFilter');
+  [...new Set(PRODUCTS.map(p => p.brand))].sort().forEach(b => {
+    const o = document.createElement('option'); o.value = b; o.textContent = b; bf.appendChild(o);
+  });
+  bf.addEventListener('change', () => { selectedBrand = bf.value; renderGrid(); });
+  document.getElementById('availabilityFilter').addEventListener('change', e => { selectedAvail = e.target.value; renderGrid(); });
+  document.getElementById('productsSearchInput').addEventListener('input', e => { searchQuery = e.target.value; renderGrid(); });
+}
+
+// ── Grid ──
+function renderGrid() {
+  let filtered = PRODUCTS;
+  if (activeCategory) filtered = filtered.filter(p => p.category === activeCategory);
+  if (selectedBrand)  filtered = filtered.filter(p => p.brand === selectedBrand);
+  if (selectedAvail)  filtered = filtered.filter(p => p.availability === selectedAvail);
+  if (searchQuery) {
+    const q = searchQuery.toLowerCase();
+    filtered = filtered.filter(p =>
+      p.name.toLowerCase().includes(q) ||
+      p.brand.toLowerCase().includes(q) ||
+      p.shortDesc.toLowerCase().includes(q)
+    );
+  }
+
+  const countEl = document.getElementById('productsCount');
+  if (countEl) countEl.textContent = `${filtered.length} product${filtered.length !== 1 ? 's' : ''} found`;
+
+  const grid = document.getElementById('productsGrid');
+  if (!filtered.length) {
+    grid.innerHTML = `<div class="no-results">
+      <div class="no-results-icon">🔍</div>
+      <h3>No products found</h3>
+      <p>Try adjusting your search or filters.</p>
+      <br>
+      <button class="btn btn-outline-dark" onclick="clearFilters()">Clear Filters</button>
+    </div>`;
+    return;
+  }
+  grid.innerHTML = filtered.map((p, i) => renderProductCard(p, i)).join('');
+  setTimeout(initScrollReveal, 50);
+}
+
+function clearFilters() {
+  activeCategory = ''; searchQuery = ''; selectedBrand = ''; selectedAvail = '';
+  document.getElementById('productsSearchInput').value = '';
+  document.getElementById('brandFilter').value = '';
+  document.getElementById('availabilityFilter').value = '';
+  renderCategoryChips();
+  renderGrid();
+}
+
+// ────────────────────────────────────────────
+//  PRODUCT DETAIL MODAL
+// ────────────────────────────────────────────
+let currentProduct = null;
+
+function openDetail(productId) {
+  const p = PRODUCTS.find(pr => pr.id === productId);
+  if (!p) return;
+  currentProduct = p;
+
+  const bgIdx  = PRODUCTS.indexOf(p);
+  const images = p.images || ['', '', ''];   // always 3 slots
+  const mainSrc = images[0] || '';
+
+  // ── Main image ──
+  const mainEl = document.getElementById('detailImgMain');
+  mainEl.className = `detail-img-main ${getBgColor(bgIdx)}`;
+  mainEl.innerHTML = mainSrc
+    ? `<img src="${mainSrc}" alt="${p.name}" />`
+    : `<span>${p.emoji || '📦'}</span>`;
+
+  // ── 3 thumbnail slots ──
+  // Slot 0 = images[0], Slot 1 = images[1], Slot 2 = images[2]
+  // Each slot renders as either a real thumbnail or an empty placeholder.
+  const thumbsEl = document.getElementById('detailThumbs');
+  thumbsEl.innerHTML = [0, 1, 2].map(idx => {
+    const src = images[idx] || '';
+    if (src) {
+      return `<div class="detail-thumb ${idx === 0 ? 'active' : ''}"
+                   onclick="selectThumb(this, '${src.replace(/'/g,"\\'")}', '${getBgColor(bgIdx)}')">
+                <img src="${src}" alt="View ${idx + 1}" loading="lazy" />
+              </div>`;
+    } else {
+      // Empty slot — dashed placeholder. To fill: add path to images[${idx}] in data.js
+      return `<div class="detail-thumb thumb-empty" title="Image slot ${idx + 1} — add path in data.js images[${idx}]">+</div>`;
+    }
+  }).join('');
+
+  // ── Brand & name ──
+  document.getElementById('detailBrand').textContent = p.brand;
+  document.getElementById('detailName').textContent  = p.name;
+
+  // ── Availability ──
+  const availCls = p.availability === 'In Stock' ? 'avail-in'
+                 : p.availability === 'Order Basis' ? 'avail-order' : 'avail-out';
+  document.getElementById('detailAvailability').innerHTML =
+    `<span class="product-detail-availability ${availCls}">● ${p.availability}</span>`;
+
+  // ── Price ──
+  const priceEl = document.getElementById('detailPrice');
+  priceEl.textContent = p.price ? `Rs. ${p.price.toLocaleString('en-LK')}` : '';
+
+  // ── Description ──
+  document.getElementById('detailDesc').textContent = p.description;
+
+  // ── Specs ──
+  document.getElementById('detailSpecs').innerHTML = p.specs
+    ? Object.entries(p.specs).map(([k, v]) => `<tr><td>${k}</td><td>${v}</td></tr>`).join('')
+    : '';
+
+  // ── Actions ──
+  const msg = encodeURIComponent(`Hello, I would like more information about the ${p.name}.`);
+  document.getElementById('detailActions').innerHTML = `
+    <a class="btn btn-primary" href="https://wa.me/94740034125?text=${msg}" target="_blank" rel="noopener">
+      <svg width="15" height="15" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.123.553 4.116 1.52 5.845L0 24l6.335-1.648A11.95 11.95 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.797 9.797 0 01-4.988-1.362l-.357-.212-3.758.977.999-3.658-.233-.376A9.79 9.79 0 012.182 12C2.182 6.57 6.57 2.182 12 2.182S21.818 6.57 21.818 12 17.43 21.818 12 21.818z"/></svg>
+      Ask on WhatsApp
+    </a>
+    <a class="btn btn-outline-dark" href="tel:+94740034125">
+      <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 8.81 19.79 19.79 0 01.01 2.18C.01 1.07.99.01 2.1.01h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.91 7.91a16 16 0 006.18 6.18l1.27-.45a2 2 0 012.11.45c.907.339 1.85.573 2.81.7A2 2 0 0121.99 16.92z"/></svg>
+      Call Now
+    </a>`;
+
+  // ── Open modal ──
+  document.getElementById('detailOverlay').classList.add('open');
+  document.body.style.overflow = 'hidden';
+  const url = new URL(window.location);
+  url.searchParams.set('product', productId);
+  window.history.pushState({}, '', url);
+}
+
+function closeDetail() {
+  document.getElementById('detailOverlay').classList.remove('open');
+  document.body.style.overflow = '';
+  const url = new URL(window.location);
+  url.searchParams.delete('product');
+  window.history.pushState({}, '', url);
+}
+
+function handleOverlayClick(e) {
+  if (e.target === document.getElementById('detailOverlay')) closeDetail();
+}
+
+function selectThumb(el, src, bgClass) {
+  document.querySelectorAll('.detail-thumb').forEach(t => t.classList.remove('active'));
+  el.classList.add('active');
+  const main = document.getElementById('detailImgMain');
+  main.style.opacity = '0';
+  setTimeout(() => {
+    main.className = `detail-img-main ${bgClass}`;
+    main.innerHTML = `<img src="${src}" alt="Product view" />`;
+    main.style.opacity = '1';
+  }, 150);
+}
+
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeDetail(); });
+
+// ── Init ──
+initFilters();
+renderCategoryChips();
+renderGrid();
+
+// Open product from URL param (e.g. coming from home.html "View Details")
+const urlParams  = new URLSearchParams(window.location.search);
+const productParam = urlParams.get('product');
+if (productParam) setTimeout(() => openDetail(productParam), 120);
+</script>
+</body>
+</html>
