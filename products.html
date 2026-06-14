@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Products — Ideal E-Mall | Kitchen Appliances & Home Essentials</title>
-  <meta name="description" content="Browse our full range of kitchen appliances and home essentials at Ideal E-Mall, Wellampitiya, Sri Lanka. Gas hobs, stand mixers, coffee machines, storage racks and more." />
+  <meta name="description" content="Browse our full range of kitchen appliances and home essentials at Ideal E-Mall, Wellampitiya, Sri Lanka." />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
@@ -24,7 +24,6 @@
       backdrop-filter: blur(5px);
     }
     .detail-overlay.open { display: flex; }
-
     .detail-modal {
       background: #fff;
       border-radius: var(--radius-xl);
@@ -39,7 +38,6 @@
       from { opacity: 0; transform: translateY(20px) scale(0.98); }
       to   { opacity: 1; transform: translateY(0) scale(1); }
     }
-
     .detail-modal-close {
       position: absolute;
       top: 14px; right: 14px;
@@ -56,7 +54,6 @@
       font-weight: 700;
     }
     .detail-modal-close:hover { background: var(--accent); color: #fff; }
-
     .detail-modal-inner {
       display: grid;
       grid-template-columns: 1fr 1fr;
@@ -74,14 +71,13 @@
       overflow-y: auto;
       max-height: 85vh;
     }
-
     @media (max-width: 680px) {
       .detail-modal-inner { grid-template-columns: 1fr; }
       .detail-modal-img-col { border-right: none; border-bottom: 1px solid var(--border-light); padding: 20px; }
       .detail-modal-info-col { padding: 20px; max-height: none; }
     }
 
-    /* ── KOKO Badge ── */
+    /* KOKO Badge */
     .koko-badge {
       display: inline-flex;
       align-items: center;
@@ -93,12 +89,22 @@
       letter-spacing: 0.04em;
       padding: 4px 10px;
       border-radius: 20px;
-      margin-top: 4px;
       white-space: nowrap;
+      width: fit-content;
     }
     .koko-price-block { display: flex; flex-direction: column; gap: 4px; margin-bottom: 8px; }
+    .koko-modal-block {
+      background: linear-gradient(135deg, #ede9fe, #f5f3ff);
+      border: 1px solid #c4b5fd;
+      border-radius: var(--radius-md);
+      padding: 14px 16px;
+    }
+    .koko-modal-label { font-size: 11px; font-weight: 700; color: #6d28d9; text-transform: uppercase; letter-spacing: 0.05em; margin-bottom: 4px; }
+    .koko-modal-price { font-family: var(--font-display); font-size: 20px; font-weight: 800; color: #4c1d95; }
+    .koko-modal-price span { font-size: 13px; font-weight: 600; color: #7c3aed; }
+    .koko-modal-note { font-size: 11px; color: #7c3aed; margin-top: 3px; }
 
-    /* ── Main image viewer ── */
+    /* Image viewer */
     .detail-img-main {
       width: 100%;
       aspect-ratio: 4/3;
@@ -111,29 +117,11 @@
       transition: opacity 0.2s;
       background: var(--border-light);
     }
-    .detail-img-main img {
-      width: 100%;
-      height: 100%;
-      object-fit: contain;
-      background: #fff;
-    }
+    .detail-img-main img { width: 100%; height: 100%; object-fit: contain; background: #fff; }
 
-    /* ── 3 thumbnail slots ── */
-    .detail-thumbs {
-      display: flex;
-      gap: 10px;
-      margin-top: 14px;
-    }
-    /*
-      THUMBNAIL SLOT STRUCTURE:
-      Each product has 3 image slots (images[0], images[1], images[2]).
-      - Slot with an image  → shows the photo; clicking it swaps the main view
-      - Slot without image  → shows a dashed "add image" placeholder
-      To add an image later: fill in the path in data.js images[] array.
-    */
+    .detail-thumbs { display: flex; gap: 10px; margin-top: 14px; }
     .detail-thumb {
-      width: 72px;
-      height: 72px;
+      width: 72px; height: 72px;
       border-radius: var(--radius-sm);
       border: 2px solid var(--border);
       cursor: pointer;
@@ -149,31 +137,13 @@
     .detail-thumb img { width: 100%; height: 100%; object-fit: contain; }
     .detail-thumb.active  { border-color: var(--accent); box-shadow: 0 0 0 2px rgba(255,77,0,0.2); }
     .detail-thumb:hover:not(.thumb-empty) { border-color: var(--accent); }
+    .detail-thumb.thumb-empty { border: 2px dashed var(--border); cursor: default; opacity: 0.45; font-size: 18px; color: var(--text-muted); }
 
-    /* Empty slot: dashed placeholder you can fill later */
-    .detail-thumb.thumb-empty {
-      border: 2px dashed var(--border);
-      cursor: default;
-      opacity: 0.45;
-      font-size: 18px;
-      color: var(--text-muted);
-    }
+    /* Price in modal */
+    .detail-price { font-size: 24px; font-weight: 800; color: var(--accent); font-family: var(--font-display); }
 
-    /* ── Price in modal ── */
-    .detail-price {
-      font-size: 24px;
-      font-weight: 800;
-      color: var(--accent);
-      font-family: var(--font-display);
-    }
-
-    /* ── Category chips ── */
-    .category-chips-wrap {
-      display: flex;
-      gap: 8px;
-      flex-wrap: wrap;
-      margin-top: 20px;
-    }
+    /* Category chips */
+    .category-chips-wrap { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 20px; }
     .cat-chip {
       display: inline-flex;
       align-items: center;
@@ -191,11 +161,50 @@
     }
     .cat-chip:hover { border-color: var(--accent); color: var(--accent); background: var(--accent-light); }
     .cat-chip.active { background: var(--accent); border-color: var(--accent); color: #fff; box-shadow: 0 4px 14px rgba(255,77,0,0.25); }
+
+    /* Cart badge */
+    .cart-nav-btn { position: relative; }
+    .cart-badge {
+      position: absolute;
+      top: -6px; right: -8px;
+      width: 18px; height: 18px;
+      background: var(--accent);
+      color: #fff;
+      font-size: 10px;
+      font-weight: 800;
+      border-radius: 50%;
+      display: none;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* Toast */
+    .cart-toast {
+      position: fixed;
+      bottom: 28px;
+      left: 50%;
+      transform: translateX(-50%) translateY(20px);
+      background: #1a1a2e;
+      color: #fff;
+      padding: 12px 22px;
+      border-radius: 100px;
+      font-size: 14px;
+      font-weight: 500;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      opacity: 0;
+      transition: all 0.3s;
+      z-index: 9999;
+      white-space: nowrap;
+      box-shadow: 0 8px 32px rgba(0,0,0,0.3);
+    }
+    .cart-toast.show { opacity: 1; transform: translateX(-50%) translateY(0); }
   </style>
 </head>
 <body>
 
-<!-- ── Navbar ── -->
+<!-- NAVIGATION -->
 <nav class="navbar" id="navbar">
   <div class="nav-inner">
     <a class="nav-logo" href="home.html">
@@ -207,11 +216,10 @@
       <a class="nav-link active" href="products.html">Products</a>
       <a class="nav-link" href="home.html#about">About</a>
       <a class="nav-link" href="home.html#contact">Contact</a>
-    </div>
-    <div class="nav-cta">
-      <a class="btn btn-primary btn-sm" href="https://wa.me/94740034125?text=Hello%2C%20I%20would%20like%20more%20information%20about%20your%20products." target="_blank" rel="noopener">
-        <svg width="14" height="14" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.123.553 4.116 1.52 5.845L0 24l6.335-1.648A11.95 11.95 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.797 9.797 0 01-4.988-1.362l-.357-.212-3.758.977.999-3.658-.233-.376A9.79 9.79 0 012.182 12C2.182 6.57 6.57 2.182 12 2.182S21.818 6.57 21.818 12 17.43 21.818 12 21.818z"/></svg>
-        WhatsApp
+      <a class="nav-link cart-nav-btn" href="cart.html">
+        <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4zM3 6h18M16 10a4 4 0 01-8 0"/></svg>
+        Cart
+        <span class="cart-badge" id="navCartBadge">0</span>
       </a>
     </div>
     <button class="nav-mobile-toggle" id="mobileToggle" aria-label="Menu">
@@ -225,11 +233,12 @@
   <a class="nav-link active" href="products.html">Products</a>
   <a class="nav-link" href="home.html#about">About</a>
   <a class="nav-link" href="home.html#contact">Contact</a>
+  <a class="nav-link" href="cart.html">🛒 Cart</a>
 </div>
 
 <main>
 
-<!-- ── Products Header ── -->
+<!-- Products Header -->
 <div class="products-page-header">
   <div class="container">
     <span class="accent-label">Our Collection</span>
@@ -257,7 +266,7 @@
   </div>
 </div>
 
-<!-- ── Products Grid ── -->
+<!-- Products Grid -->
 <div class="container section-sm">
   <div class="products-grid" id="productsGrid"></div>
 </div>
@@ -265,9 +274,7 @@
 </main>
 
 
-<!-- ════════════════════════════════════════
-     PRODUCT DETAIL MODAL
-     ════════════════════════════════════════ -->
+<!-- PRODUCT DETAIL MODAL -->
 <div class="detail-overlay" id="detailOverlay" onclick="handleOverlayClick(event)">
   <div class="detail-modal" id="detailModal">
 
@@ -277,22 +284,8 @@
 
       <!-- LEFT: Images -->
       <div class="detail-modal-img-col">
-
-        <!-- Main image viewer -->
         <div class="detail-img-main" id="detailImgMain"></div>
-
-        <!--
-          THUMBNAIL SLOTS (3 per product)
-          ─────────────────────────────────
-          Slot 1 (images[0]) — main/primary photo
-          Slot 2 (images[1]) — second angle  ← fill path in data.js when ready
-          Slot 3 (images[2]) — detail shot   ← fill path in data.js when ready
-
-          Empty slots show a dashed placeholder automatically.
-          No code changes needed — just update the path in data.js.
-        -->
         <div class="detail-thumbs" id="detailThumbs"></div>
-
       </div>
 
       <!-- RIGHT: Info -->
@@ -303,7 +296,11 @@
         </div>
         <div id="detailAvailability"></div>
         <div class="detail-price" id="detailPrice"></div>
-        <span class="koko-badge" id="productKoko" style="display:none;margin-bottom:12px;">💳 Up to 10% extra with KOKO</span>
+        <div class="koko-modal-block" id="kokoModalBlock" style="display:none;">
+          <div class="koko-modal-label">💳 Pay with KOKO — 3 easy instalments</div>
+          <div class="koko-modal-price" id="kokoModalPrice"></div>
+          <div class="koko-modal-note" id="kokoModalNote"></div>
+        </div>
         <p class="product-detail-desc" id="detailDesc"></p>
         <div class="specs-section">
           <div class="specs-title">Specifications</div>
@@ -335,6 +332,7 @@
           <a class="footer-link" href="products.html">Products</a>
           <a class="footer-link" href="home.html#about">About Us</a>
           <a class="footer-link" href="home.html#contact">Contact</a>
+          <a class="footer-link" href="cart.html">🛒 Cart</a>
         </div>
       </div>
       <div>
@@ -348,7 +346,6 @@
     </div>
     <div class="footer-bottom">
       <p>© 2025 Ideal E-Mall. All rights reserved. Wellampitiya, Sri Lanka.</p>
-      <p>Built for quality shopping experiences.</p>
     </div>
   </div>
 </footer>
@@ -358,8 +355,17 @@
 </button>
 
 <script src="js/data.js"></script>
+<script src="js/cart.js"></script>
 <script>
 'use strict';
+
+// ── KOKO algorithm ──
+function calcKokoPrice(price) {
+  return Math.ceil(price * 1.10 / 50) * 50;
+}
+function kokoInstalment(price) {
+  return Math.ceil(calcKokoPrice(price) / 3);
+}
 
 // ── State ──
 let activeCategory = '';
@@ -393,10 +399,7 @@ function initScrollReveal() {
 // ── Helpers ──
 const bgColors = ['bg-orange','bg-teal','bg-violet','bg-gold','bg-green','bg-rose','bg-blue'];
 function getBgColor(i) { return bgColors[i % bgColors.length]; }
-
-function getMainImage(p) {
-  return (p.images && p.images[0]) ? p.images[0] : null;
-}
+function getMainImage(p) { return (p.images && p.images[0]) ? p.images[0] : null; }
 
 function availBadge(avail) {
   if (avail === 'In Stock')    return `<span class="product-card-availability avail-in">● In Stock</span>`;
@@ -407,6 +410,7 @@ function availBadge(avail) {
 // ── Product card ──
 function renderProductCard(p, i) {
   const img = getMainImage(p);
+  const kokoAmt = p.price ? kokoInstalment(p.price) : 0;
   return `
     <div class="product-card" onclick="openDetail('${p.id}')">
       ${p.featured ? '<div class="featured-badge">Featured</div>' : ''}
@@ -417,13 +421,20 @@ function renderProductCard(p, i) {
         <div class="product-card-brand">${p.brand}</div>
         <div class="product-card-name">${p.name}</div>
         <div class="product-card-desc">${p.shortDesc}</div>
-        ${p.price ? `<div class="koko-price-block"><div class="product-card-price">Rs. ${p.price.toLocaleString('en-LK')}</div><span class="koko-badge">💳 Up to 10% extra with KOKO</span></div>` : ''}
+        ${p.price ? `
+        <div class="koko-price-block">
+          <div class="product-card-price">Rs. ${p.price.toLocaleString('en-LK')}</div>
+          <span class="koko-badge">💳 KOKO: Rs. ${kokoAmt.toLocaleString('en-LK')} × 3</span>
+        </div>` : ''}
         ${availBadge(p.availability)}
       </div>
       <div class="product-card-footer">
         <button class="btn btn-primary btn-sm" onclick="event.stopPropagation();openDetail('${p.id}')">
           View Details
           <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </button>
+        <button class="btn btn-outline-dark btn-sm" onclick="event.stopPropagation();addToCart('${p.id}')" title="Add to cart">
+          🛒
         </button>
       </div>
     </div>`;
@@ -494,9 +505,7 @@ function clearFilters() {
   renderGrid();
 }
 
-// ────────────────────────────────────────────
-//  PRODUCT DETAIL MODAL
-// ────────────────────────────────────────────
+// ── Product Detail Modal ──
 let currentProduct = null;
 
 function openDetail(productId) {
@@ -505,19 +514,17 @@ function openDetail(productId) {
   currentProduct = p;
 
   const bgIdx  = PRODUCTS.indexOf(p);
-  const images = p.images || ['', '', ''];   // always 3 slots
+  const images = p.images || ['', '', ''];
   const mainSrc = images[0] || '';
 
-  // ── Main image ──
+  // Main image
   const mainEl = document.getElementById('detailImgMain');
   mainEl.className = `detail-img-main ${getBgColor(bgIdx)}`;
   mainEl.innerHTML = mainSrc
     ? `<img src="${mainSrc}" alt="${p.name}" />`
     : `<span>${p.emoji || '📦'}</span>`;
 
-  // ── 3 thumbnail slots ──
-  // Slot 0 = images[0], Slot 1 = images[1], Slot 2 = images[2]
-  // Each slot renders as either a real thumbnail or an empty placeholder.
+  // Thumbnails
   const thumbsEl = document.getElementById('detailThumbs');
   thumbsEl.innerHTML = [0, 1, 2].map(idx => {
     const src = images[idx] || '';
@@ -526,40 +533,50 @@ function openDetail(productId) {
                    onclick="selectThumb(this, '${src.replace(/'/g,"\\'")}', '${getBgColor(bgIdx)}')">
                 <img src="${src}" alt="View ${idx + 1}" loading="lazy" />
               </div>`;
-    } else {
-      // Empty slot — dashed placeholder. To fill: add path to images[${idx}] in data.js
-      return `<div class="detail-thumb thumb-empty" title="Image slot ${idx + 1} — add path in data.js images[${idx}]">+</div>`;
     }
+    return `<div class="detail-thumb thumb-empty" title="Image slot ${idx + 1} — add path in data.js">+</div>`;
   }).join('');
 
-  // ── Brand & name ──
   document.getElementById('detailBrand').textContent = p.brand;
   document.getElementById('detailName').textContent  = p.name;
 
-  // ── Availability ──
   const availCls = p.availability === 'In Stock' ? 'avail-in'
                  : p.availability === 'Order Basis' ? 'avail-order' : 'avail-out';
   document.getElementById('detailAvailability').innerHTML =
     `<span class="product-detail-availability ${availCls}">● ${p.availability}</span>`;
 
-  // ── Price ──
+  // Price
   const priceEl = document.getElementById('detailPrice');
   priceEl.textContent = p.price ? `Rs. ${p.price.toLocaleString('en-LK')}` : '';
-  const kokoEl = document.getElementById('productKoko');
-  if (kokoEl) kokoEl.style.display = p.price ? 'inline-flex' : 'none';
 
-  // ── Description ──
+  // KOKO block
+  const kokoBlock = document.getElementById('kokoModalBlock');
+  if (p.price) {
+    const kokoTotal = calcKokoPrice(p.price);
+    const kokoInst  = kokoInstalment(p.price);
+    document.getElementById('kokoModalPrice').innerHTML =
+      `Rs. ${kokoInst.toLocaleString('en-LK')} <span>× 3 instalments</span>`;
+    document.getElementById('kokoModalNote').textContent =
+      `KOKO total: Rs. ${kokoTotal.toLocaleString('en-LK')} (includes ~10% processing fee)`;
+    kokoBlock.style.display = 'block';
+  } else {
+    kokoBlock.style.display = 'none';
+  }
+
   document.getElementById('detailDesc').textContent = p.description;
 
-  // ── Specs ──
   document.getElementById('detailSpecs').innerHTML = p.specs
     ? Object.entries(p.specs).map(([k, v]) => `<tr><td>${k}</td><td>${v}</td></tr>`).join('')
     : '';
 
-  // ── Actions ──
+  // Actions
   const msg = encodeURIComponent(`Hello, I would like more information about the ${p.name}.`);
   document.getElementById('detailActions').innerHTML = `
-    <a class="btn btn-primary" href="https://wa.me/94740034125?text=${msg}" target="_blank" rel="noopener">
+    <button class="btn btn-primary" onclick="addToCart('${p.id}');closeDetail();">
+      <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4zM3 6h18M16 10a4 4 0 01-8 0"/></svg>
+      Add to Cart
+    </button>
+    <a class="btn btn-whatsapp" href="https://wa.me/94740034125?text=${msg}" target="_blank" rel="noopener">
       <svg width="15" height="15" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.123.553 4.116 1.52 5.845L0 24l6.335-1.648A11.95 11.95 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.797 9.797 0 01-4.988-1.362l-.357-.212-3.758.977.999-3.658-.233-.376A9.79 9.79 0 012.182 12C2.182 6.57 6.57 2.182 12 2.182S21.818 6.57 21.818 12 17.43 21.818 12 21.818z"/></svg>
       Ask on WhatsApp
     </a>
@@ -568,7 +585,6 @@ function openDetail(productId) {
       Call Now
     </a>`;
 
-  // ── Open modal ──
   document.getElementById('detailOverlay').classList.add('open');
   document.body.style.overflow = 'hidden';
   const url = new URL(window.location);
@@ -607,9 +623,7 @@ initFilters();
 renderCategoryChips();
 renderGrid();
 
-// Open product from URL param (e.g. coming from home.html "View Details")
-const urlParams  = new URLSearchParams(window.location.search);
-const productParam = urlParams.get('product');
+const productParam = new URLSearchParams(window.location.search).get('product');
 if (productParam) setTimeout(() => openDetail(productParam), 120);
 </script>
 </body>

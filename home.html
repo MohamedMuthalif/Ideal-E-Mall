@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Ideal E-Mall — Kitchen Appliances & Home Essentials | Wellampitiya, Sri Lanka</title>
-  <meta name="description" content="Ideal E-Mall offers quality kitchen appliances and home essentials in Wellampitiya, Sri Lanka. Gas hobs, stand mixers, coffee machines, storage racks and more from trusted brands." />
+  <meta name="description" content="Ideal E-Mall offers quality kitchen appliances and home essentials in Wellampitiya, Sri Lanka. Gas hobs, stand mixers, coffee machines, storage racks and more." />
   <meta name="keywords" content="gas hob Sri Lanka, stand mixer Sri Lanka, coffee machine, kitchen storage, HOMEBASE, Wellampitiya" />
   <meta property="og:title" content="Ideal E-Mall — Kitchen Appliances & Home Essentials" />
   <meta property="og:description" content="Quality kitchen appliances and home essentials at Ideal E-Mall, Wellampitiya, Sri Lanka." />
@@ -13,10 +13,129 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="css/style.css" />
+  <style>
+    /* ── Hero Video Background ── */
+    .hero {
+      position: relative;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      overflow: hidden;
+      padding: 0;
+    }
+
+    /* Full-bleed video layer */
+    .hero-video-bg {
+      position: absolute;
+      inset: 0;
+      z-index: 0;
+    }
+    .hero-video-bg video,
+    .hero-video-bg iframe {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+    }
+    /* Seamless dark overlay — fades edges for text readability */
+    .hero-video-bg::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        linear-gradient(to right, rgba(10,8,20,0.88) 0%, rgba(10,8,20,0.60) 55%, rgba(10,8,20,0.20) 100%),
+        linear-gradient(to bottom, rgba(10,8,20,0.50) 0%, transparent 30%, transparent 70%, rgba(10,8,20,0.70) 100%);
+    }
+
+    /* Fallback gradient when no video */
+    .hero-video-placeholder {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, #0F0F1A 0%, #1A0A30 40%, #0A1A2E 100%);
+    }
+    .hero-video-placeholder::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background:
+        radial-gradient(ellipse 60% 50% at 70% 40%, rgba(255,77,0,0.25) 0%, transparent 60%),
+        radial-gradient(ellipse 50% 60% at 20% 70%, rgba(0,180,216,0.2) 0%, transparent 60%),
+        radial-gradient(ellipse 40% 40% at 85% 80%, rgba(124,58,237,0.2) 0%, transparent 60%);
+      animation: meshMove 12s ease-in-out infinite alternate;
+    }
+
+    /* Content sits above video */
+    .hero > .container {
+      position: relative;
+      z-index: 2;
+      width: 100%;
+      padding-top: calc(var(--nav-h) + 60px);
+      padding-bottom: 80px;
+    }
+
+    .hero-inner {
+      display: grid;
+      grid-template-columns: 1fr;
+      max-width: 640px;
+    }
+
+    /* Bottom fade for seamless blend into next section */
+    .hero::after {
+      content: '';
+      position: absolute;
+      bottom: 0; left: 0; right: 0;
+      height: 120px;
+      background: linear-gradient(to bottom, transparent, var(--bg));
+      z-index: 3;
+      pointer-events: none;
+    }
+
+    /* Cart badge */
+    .cart-nav-btn { position: relative; }
+    .cart-badge {
+      position: absolute;
+      top: -6px; right: -8px;
+      width: 18px; height: 18px;
+      background: var(--accent);
+      color: #fff;
+      font-size: 10px;
+      font-weight: 800;
+      border-radius: 50%;
+      display: none;
+      align-items: center;
+      justify-content: center;
+    }
+
+    /* KOKO styling on product cards */
+    .koko-price-block { display: flex; flex-direction: column; gap: 4px; margin-bottom: 8px; }
+    .koko-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 5px;
+      background: linear-gradient(135deg, #8B5CF6, #6D28D9);
+      color: #fff;
+      font-size: 10px;
+      font-weight: 800;
+      letter-spacing: 0.04em;
+      padding: 3px 8px;
+      border-radius: 20px;
+      white-space: nowrap;
+      width: fit-content;
+    }
+    .koko-instalment {
+      font-size: 11px;
+      color: #7c3aed;
+      font-weight: 600;
+    }
+
+    @media (max-width: 768px) {
+      .hero > .container { padding-top: calc(var(--nav-h) + 40px); padding-bottom: 60px; }
+    }
+  </style>
 </head>
 <body>
 
-<!-- ============ NAVIGATION ============ -->
+<!-- NAVIGATION -->
 <nav class="navbar" id="navbar">
   <div class="nav-inner">
     <a class="nav-logo" href="home.html">
@@ -28,11 +147,10 @@
       <a class="nav-link" href="products.html">Products</a>
       <a class="nav-link" href="#about">About</a>
       <a class="nav-link" href="#contact">Contact</a>
-    </div>
-    <div class="nav-cta">
-      <a class="btn btn-primary btn-sm" href="https://wa.me/94740034125?text=Hello%2C%20I%20would%20like%20more%20information%20about%20your%20products." target="_blank" rel="noopener">
-        <svg width="14" height="14" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.123.553 4.116 1.52 5.845L0 24l6.335-1.648A11.95 11.95 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.797 9.797 0 01-4.988-1.362l-.357-.212-3.758.977.999-3.658-.233-.376A9.79 9.79 0 012.182 12C2.182 6.57 6.57 2.182 12 2.182S21.818 6.57 21.818 12 17.43 21.818 12 21.818z"/></svg>
-        WhatsApp
+      <a class="nav-link cart-nav-btn" href="cart.html">
+        <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4zM3 6h18M16 10a4 4 0 01-8 0"/></svg>
+        Cart
+        <span class="cart-badge" id="navCartBadge">0</span>
       </a>
     </div>
     <button class="nav-mobile-toggle" id="mobileToggle" aria-label="Menu">
@@ -41,26 +159,38 @@
   </div>
 </nav>
 
-<!-- Mobile Nav -->
 <div class="mobile-nav" id="mobileNav">
   <a class="nav-link active" href="home.html">Home</a>
   <a class="nav-link" href="products.html">Products</a>
   <a class="nav-link" href="#about">About</a>
   <a class="nav-link" href="#contact">Contact</a>
+  <a class="nav-link" href="cart.html">🛒 Cart</a>
 </div>
 
 <main>
 
-<!-- ============ HERO BANNER ============ -->
+<!-- ============ HERO ============ -->
 <section class="hero">
-  <div class="hero-orb hero-orb-1"></div>
-  <div class="hero-orb hero-orb-2"></div>
-  <div class="hero-orb hero-orb-3"></div>
+
+  <!-- Video background -->
+  <div class="hero-video-bg">
+    <!--
+      TO USE YOUR VIDEO:
+      Option A – Local file:
+        <video src="img/your-video.mp4" autoplay muted loop playsinline poster="img/video-thumbnail.jpg"></video>
+
+      Option B – YouTube:
+        <iframe src="https://www.youtube.com/embed/VIDEO_ID?autoplay=1&mute=1&loop=1&playlist=VIDEO_ID&controls=0&showinfo=0&rel=0"
+                frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe>
+
+      Remove the .hero-video-placeholder div below once you have a video.
+    -->
+    <div class="hero-video-placeholder"></div>
+  </div>
 
   <div class="container">
     <div class="hero-inner">
 
-      <!-- Left: Content -->
       <div class="hero-content">
         <div class="hero-badge">
           <span class="hero-badge-dot"></span>
@@ -80,9 +210,9 @@
             <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/></svg>
             Browse Products
           </a>
-          <a class="btn btn-outline" href="https://wa.me/94740034125?text=Hello%2C%20I%20would%20like%20more%20information%20about%20your%20products." target="_blank" rel="noopener">
-            <svg width="15" height="15" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.123.553 4.116 1.52 5.845L0 24l6.335-1.648A11.95 11.95 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.797 9.797 0 01-4.988-1.362l-.357-.212-3.758.977.999-3.658-.233-.376A9.79 9.79 0 012.182 12C2.182 6.57 6.57 2.182 12 2.182S21.818 6.57 21.818 12 17.43 21.818 12 21.818z"/></svg>
-            Chat on WhatsApp
+          <a class="btn btn-outline" href="cart.html">
+            <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4zM3 6h18M16 10a4 4 0 01-8 0"/></svg>
+            View Cart
           </a>
         </div>
 
@@ -94,87 +224,10 @@
         </div>
       </div>
 
-      <!-- Right: Floating product cards -->
-      <div class="hero-visual">
-        <div class="hero-cards-stack">
-
-          <div class="hero-card-main">
-            <div class="hero-card-img" style="padding:0;overflow:hidden;">
-              <img src="img/stand mixer 8l.png" alt="Stand Mixer" style="width:100%;height:100%;object-fit:cover;" />
-            </div>
-            <div class="hero-card-body">
-              <div class="hero-card-brand">Sokany</div>
-              <div class="hero-card-name">Stand Mixer 8L</div>
-              <div class="hero-card-status">In Stock</div>
-            </div>
-          </div>
-
-          <div class="hero-float-card hero-float-1">
-            <div class="float-icon">🚚</div>
-            <div>
-              <div class="float-label">Delivery</div>
-              <div class="float-value">Islandwide</div>
-            </div>
-          </div>
-
-          <div class="hero-float-card hero-float-2">
-            <div class="float-label">Top Brands</div>
-            <div class="float-chip-row">
-              <span class="float-chip orange">HOMEBASE</span>
-              <span class="float-chip teal">Sokany</span>
-              <span class="float-chip">KROME</span>
-            </div>
-          </div>
-
-          <div class="hero-float-card hero-float-3">
-            <div class="float-icon">🔥</div>
-            <div>
-              <div class="float-label">Category</div>
-              <div class="float-value">Gas Hobs</div>
-            </div>
-          </div>
-
-        </div>
-      </div>
-
     </div>
   </div>
 </section>
 
-
-<!-- ============ HERO VIDEO ============ -->
-<section class="hero-video-section">
-  <div class="container">
-    <div class="hero-video-wrapper">
-      <div class="hero-video-label">
-        <span class="hero-video-dot"></span>
-        See Us In Action
-      </div>
-      <div class="hero-video-box" id="heroVideoBox">
-        <!-- 📹 Replace the placeholder below with your actual video file -->
-        <!-- Option 1: Local video file (place your .mp4 in the img/ folder) -->
-        <!-- <video src="img/your-video.mp4" controls autoplay muted loop playsinline poster="img/video-thumbnail.jpg"></video> -->
-
-        <!-- Option 2: YouTube embed (replace VIDEO_ID with your YouTube video ID) -->
-        <!-- <iframe src="https://www.youtube.com/embed/VIDEO_ID?autoplay=1&mute=1&loop=1" frameborder="0" allow="autoplay; encrypted-media" allowfullscreen></iframe> -->
-
-        <!-- PLACEHOLDER — shown until you upload your video -->
-        <div class="video-placeholder">
-          <div class="video-placeholder-inner">
-            <div class="video-play-ring">
-              <svg class="video-play-icon" width="40" height="40" fill="none" viewBox="0 0 24 24">
-                <circle cx="12" cy="12" r="11" stroke="currentColor" stroke-width="1.5" opacity="0.3"/>
-                <path d="M9.5 7.5l7 4.5-7 4.5V7.5z" fill="currentColor"/>
-              </svg>
-            </div>
-            <p class="video-placeholder-text">Your Video Goes Here</p>
-            <p class="video-placeholder-sub">Replace the placeholder code in <code>home.html</code> → hero video section</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
 
 <!-- ============ FEATURED PRODUCTS ============ -->
 <section class="section featured-section" id="featured-section">
@@ -185,9 +238,7 @@
       <p class="body-text">Handpicked kitchen appliances and home essentials for quality and value.</p>
     </div>
 
-    <!-- Category filter pills -->
     <div class="categories-strip" id="homeCategoryStrip"></div>
-
     <div class="products-grid" id="featuredGrid"></div>
 
     <div style="text-align:center;margin-top:52px;">
@@ -257,7 +308,7 @@
       <div class="about-content reveal reveal-delay-1">
         <span class="accent-label">About Ideal E-Mall</span>
         <h2 class="section-title">Quality Appliances,<br>Honest Service</h2>
-        <p class="body-text" style="font-size:17px;">We sell kitchen appliances and home essentials across Sri Lanka. Our focus is simple: quality products, clear information, and helping customers choose the right item. You can contact us anytime for support.</p>
+        <p class="body-text" style="font-size:17px;">We sell kitchen appliances and home essentials across Sri Lanka. Our focus is simple: quality products, clear information, and helping customers choose the right item.</p>
         <p class="body-text">Located at 79 Avissawella Road, Wellampitiya, our store has been a trusted destination for families and businesses looking for reliable appliances at fair prices.</p>
         <div class="about-points">
           <div class="about-point"><div class="about-point-check">✓</div><span>Products from trusted brands including HOMEBASE, Sokany &amp; KROME</span></div>
@@ -265,12 +316,10 @@
           <div class="about-point"><div class="about-point-check">✓</div><span>Islandwide delivery available for all purchases</span></div>
           <div class="about-point"><div class="about-point-check">✓</div><span>Reachable via phone or WhatsApp for quick answers</span></div>
         </div>
-        <div>
-          <a class="btn btn-primary" href="tel:+94740034125">
-            <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 8.81 19.79 19.79 0 01.01 2.18C.01 1.07.99.01 2.1.01h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.91 7.91a16 16 0 006.18 6.18l1.27-.45a2 2 0 012.11.45c.907.339 1.85.573 2.81.7A2 2 0 0121.99 16.92z"/></svg>
-            Call Us Now
-          </a>
-        </div>
+        <a class="btn btn-primary" href="tel:+94740034125">
+          <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 8.81 19.79 19.79 0 01.01 2.18C.01 1.07.99.01 2.1.01h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.91 7.91a16 16 0 006.18 6.18l1.27-.45a2 2 0 012.11.45c.907.339 1.85.573 2.81.7A2 2 0 0121.99 16.92z"/></svg>
+          Call Us Now
+        </a>
       </div>
     </div>
   </div>
@@ -292,7 +341,7 @@
           <div><div class="review-name">IYAZ IHSAN</div></div>
         </div>
         <div class="review-stars">★★★★★</div>
-        <p class="review-text">I would give "Ideal e-mall" a perfect 5/5 for putting the needs of its customers first. When my HOMEBASE built-in cooker arrived, I was astounded by the quality, which exceeded my expectations. They also accept accountability for their products. I wish you all the best! ❤️</p>
+        <p class="review-text">I would give "Ideal e-mall" a perfect 5/5 for putting the needs of its customers first. When my HOMEBASE built-in cooker arrived, I was astounded by the quality, which exceeded my expectations. ❤️</p>
       </div>
       <div class="review-card reveal reveal-delay-1">
         <div class="review-header">
@@ -300,7 +349,7 @@
           <div><div class="review-name">dark5un</div></div>
         </div>
         <div class="review-stars">★★★★★</div>
-        <p class="review-text">Overall very good experience from ordering to delivery. They were prompt and courteous at each step. The prices are very reasonable and they were knowledgeable enough to answer my many questions. Plan to be a long term patron of them.</p>
+        <p class="review-text">Overall very good experience from ordering to delivery. They were prompt and courteous at each step. The prices are very reasonable and they were knowledgeable enough to answer my many questions.</p>
       </div>
       <div class="review-card reveal reveal-delay-2">
         <div class="review-header">
@@ -407,6 +456,7 @@
           <a class="footer-link" href="products.html">Products</a>
           <a class="footer-link" href="#about">About Us</a>
           <a class="footer-link" href="#contact">Contact</a>
+          <a class="footer-link" href="cart.html">🛒 Cart</a>
         </div>
       </div>
       <div>
@@ -420,7 +470,6 @@
     </div>
     <div class="footer-bottom">
       <p>© 2025 Ideal E-Mall. All rights reserved. Wellampitiya, Sri Lanka.</p>
-      <p>Built for quality shopping experiences.</p>
     </div>
   </div>
 </footer>
@@ -430,10 +479,19 @@
 </button>
 
 <script src="js/data.js"></script>
+<script src="js/cart.js"></script>
 <script>
 'use strict';
 
-// ── Navbar & scroll ──
+// ── KOKO price helpers (mirrors cart.js, available before cart.js loads fully) ──
+function calcKokoPrice(price) {
+  return Math.ceil(price * 1.10 / 50) * 50;
+}
+function kokoInstalment(price) {
+  return Math.ceil(calcKokoPrice(price) / 3);
+}
+
+// ── Navbar ──
 const navbar = document.getElementById('navbar');
 window.addEventListener('scroll', () => {
   navbar.classList.toggle('scrolled', window.scrollY > 20);
@@ -463,10 +521,7 @@ initScrollReveal();
 // ── Helpers ──
 const bgColors = ['bg-orange','bg-teal','bg-violet','bg-gold','bg-green','bg-rose','bg-blue'];
 function getBgColor(i) { return bgColors[i % bgColors.length]; }
-
-function getMainImage(p) {
-  return (p.images && p.images[0]) ? p.images[0] : null;
-}
+function getMainImage(p) { return (p.images && p.images[0]) ? p.images[0] : null; }
 
 function availBadge(avail) {
   if (avail === 'In Stock')    return `<span class="product-card-availability avail-in">● In Stock</span>`;
@@ -498,16 +553,18 @@ function filterFeatured(btn, cat) {
   renderFeatured();
 }
 
+// ── Product card with KOKO ──
 function renderFeatured() {
   const grid = document.getElementById('featuredGrid');
   if (!grid) return;
   let products = activeFeaturedCat
-    ? PRODUCTS.filter(p => p.category === activeFeaturedCat).slice(0, 4)
-    : PRODUCTS.filter(p => p.featured).slice(0, 4);
-  if (!products.length) products = PRODUCTS.slice(0, 4);
+    ? PRODUCTS.filter(p => p.category === activeFeaturedCat).slice(0, 8)
+    : PRODUCTS.filter(p => p.featured).slice(0, 8);
+  if (!products.length) products = PRODUCTS.slice(0, 8);
 
   grid.innerHTML = products.map((p, i) => {
     const img = getMainImage(p);
+    const kokoAmt = p.price ? kokoInstalment(p.price) : 0;
     return `
     <div class="product-card" onclick="window.location.href='products.html?product=${p.id}'">
       ${p.featured ? '<div class="featured-badge">Featured</div>' : ''}
@@ -518,13 +575,20 @@ function renderFeatured() {
         <div class="product-card-brand">${p.brand}</div>
         <div class="product-card-name">${p.name}</div>
         <div class="product-card-desc">${p.shortDesc}</div>
-        ${p.price ? `<div class="koko-price-block"><div class="product-card-price">Rs. ${p.price.toLocaleString('en-LK')}</div><span class="koko-badge">💳 Up to 10% extra with KOKO</span></div>` : ''}
+        ${p.price ? `
+        <div class="koko-price-block">
+          <div class="product-card-price">Rs. ${p.price.toLocaleString('en-LK')}</div>
+          <span class="koko-badge">💳 KOKO: Rs. ${kokoAmt.toLocaleString('en-LK')} × 3</span>
+        </div>` : ''}
         ${availBadge(p.availability)}
       </div>
       <div class="product-card-footer">
         <button class="btn btn-primary btn-sm" onclick="event.stopPropagation();window.location.href='products.html?product=${p.id}'">
           View Details
           <svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </button>
+        <button class="btn btn-outline-dark btn-sm" onclick="event.stopPropagation();addToCart('${p.id}')">
+          🛒
         </button>
       </div>
     </div>`;
