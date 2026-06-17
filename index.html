@@ -1,3 +1,354 @@
 <!DOCTYPE html>
-<html><head><meta http-equiv="refresh" content="0;url=home.html" /><title>Ideal E-Mall</title></head>
-<body><a href="home.html">Go to Ideal E-Mall</a></body></html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Ideal E-Mall — Kitchen Appliances & Home Essentials | Wellampitiya, Sri Lanka</title>
+  <meta name="description" content="Ideal E-Mall offers quality kitchen appliances and home essentials in Wellampitiya, Sri Lanka. Gas hobs, stand mixers, coffee machines, storage racks and more." />
+  <meta name="keywords" content="gas hob Sri Lanka, stand mixer Sri Lanka, coffee machine, kitchen storage, HOMEBASE, Wellampitiya" />
+  <meta property="og:title" content="Ideal E-Mall — Kitchen Appliances & Home Essentials" />
+  <meta property="og:description" content="Quality kitchen appliances and home essentials at Ideal E-Mall, Wellampitiya, Sri Lanka." />
+  <meta property="og:type" content="website" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;500;600;700;800&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="css/style.css" />
+</head>
+<body>
+
+<!-- NAVIGATION -->
+<nav class="navbar" id="navbar">
+  <div class="nav-inner">
+    <button class="nav-mobile-toggle" id="mobileToggle" aria-label="Menu">
+      <span></span><span></span><span></span>
+    </button>
+    <a class="nav-logo" href="index.html">
+      <div class="nav-logo-icon">IE</div>
+      <div class="nav-logo-text">Ideal <span>E-Mall</span></div>
+    </a>
+    <div class="nav-links">
+      <a class="nav-link active" href="index.html">Home</a>
+      <a class="nav-link" href="products.html">Products</a>
+      <a class="nav-link" href="#about">About</a>
+      <a class="nav-link" href="#contact">Contact</a>
+      <a class="nav-link cart-nav-btn" href="cart.html">
+        <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4zM3 6h18M16 10a4 4 0 01-8 0"/></svg>
+        Cart
+        <span class="cart-badge" id="navCartBadge">0</span>
+      </a>
+    </div>
+    <a class="nav-mobile-cart" href="cart.html" aria-label="Cart">
+      <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"><path d="M6 2L3 6v14a2 2 0 002 2h14a2 2 0 002-2V6l-3-4zM3 6h18M16 10a4 4 0 01-8 0"/></svg>
+      <span class="cart-badge" id="navCartBadgeMobile">0</span>
+    </a>
+  </div>
+</nav>
+
+<div class="mobile-nav" id="mobileNav">
+  <a class="nav-link active" href="index.html">Home</a>
+  <a class="nav-link" href="products.html">Products</a>
+  <a class="nav-link" href="#about">About</a>
+  <a class="nav-link" href="#contact">Contact</a>
+  <a class="nav-link" href="cart.html">🛒 Cart</a>
+</div>
+
+<main>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-video-bg">
+    <video src="img/hero video.mp4" autoplay muted loop playsinline preload="auto"></video>
+  </div>
+  <div class="container">
+    <div class="hero-inner">
+      <div class="hero-content">
+        <div class="hero-badge">
+          <span class="hero-badge-dot"></span>
+          Sri Lanka's Trusted Home Appliance Store
+        </div>
+        <h1 class="hero-title">
+          Your Kitchen Deserves the <span class="highlight">Best Appliances</span>
+        </h1>
+        <p class="hero-desc">
+          Premium gas hobs, stand mixers, coffee machines, storage racks and more. HOMEBASE, Sokany &amp; top brands. Islandwide delivery with honest guidance at every step.
+        </p>
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="products.html">
+            <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"/></svg>
+            Browse Products
+          </a>
+        </div>
+        <div class="hero-stats">
+          <div class="hero-stat"><strong>27+</strong><span>Products</span></div>
+          <div class="hero-stat"><strong>HOMEBASE, Sokany</strong><span>Brand</span></div>
+          <div class="hero-stat"><strong>Island Wide</strong><span>Delivery</span></div>
+          <div class="hero-stat"><strong>Since 2018</strong><span>Trusted</span></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- FEATURED PRODUCTS -->
+<section class="section featured-section" id="featured-section">
+  <div class="container">
+    <div class="section-header">
+      <span class="accent-label">Featured Products</span>
+      <h2 class="section-title">Popular This Month</h2>
+      <p class="body-text">Handpicked kitchen appliances and home essentials for quality and value.</p>
+    </div>
+    <div class="products-grid" id="featuredGrid"></div>
+    <div style="text-align:center;margin-top:52px;">
+      <a class="btn btn-outline-dark" href="products.html" style="padding:14px 36px;font-size:16px;">
+        View All Products
+        <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </a>
+    </div>
+  </div>
+</section>
+
+
+<!-- WHY CHOOSE US -->
+<section class="section why-us-section">
+  <div class="container">
+    <div class="section-header">
+      <span class="accent-label">Why Choose Us</span>
+      <h2 class="section-title">Your Trusted Appliance Partner</h2>
+    </div>
+    <div class="why-grid" id="whyGrid">
+      <div class="why-card reveal">
+        <div class="why-card-icon">🏆</div>
+        <div class="why-number">01</div>
+        <div class="why-title">Trusted Brands</div>
+        <div class="why-desc">We stock only from established, reputable brands known for quality and reliability across Sri Lanka.</div>
+      </div>
+      <div class="why-card reveal reveal-delay-1">
+        <div class="why-card-icon">💬</div>
+        <div class="why-number">02</div>
+        <div class="why-title">Helpful Support</div>
+        <div class="why-desc">Our team is ready to guide you before you buy — no pressure, just honest product advice.</div>
+      </div>
+      <div class="why-card reveal reveal-delay-2">
+        <div class="why-card-icon">🚚</div>
+        <div class="why-number">03</div>
+        <div class="why-title">Islandwide Delivery</div>
+        <div class="why-desc">We deliver to all districts across Sri Lanka. Your purchase arrives safely to your door.</div>
+      </div>
+      <div class="why-card reveal reveal-delay-3">
+        <div class="why-card-icon">🔍</div>
+        <div class="why-number">04</div>
+        <div class="why-title">Pre-purchase Guidance</div>
+        <div class="why-desc">Unsure which product suits you? Talk to us first — we help you choose the right one.</div>
+      </div>
+      <div class="why-card reveal reveal-delay-4">
+        <div class="why-card-icon">✅</div>
+        <div class="why-number">05</div>
+        <div class="why-title">Reliable Service</div>
+        <div class="why-desc">From browsing to delivery, we ensure a smooth, transparent experience every time.</div>
+      </div>
+    </div>
+    <div class="carousel-dots" id="whyDots">
+      <button class="carousel-dot active" onclick="goWhySlide(0)"></button>
+      <button class="carousel-dot" onclick="goWhySlide(1)"></button>
+      <button class="carousel-dot" onclick="goWhySlide(2)"></button>
+      <button class="carousel-dot" onclick="goWhySlide(3)"></button>
+      <button class="carousel-dot" onclick="goWhySlide(4)"></button>
+    </div>
+  </div>
+</section>
+
+
+<!-- ABOUT -->
+<section class="section about-section" id="about">
+  <div class="container">
+    <div class="about-inner">
+      <div class="about-visual-wrap reveal">
+        <div class="about-img-box">🏪</div>
+        <div class="about-badge-float">
+          <strong>Since 2018</strong>
+          <span>Serving Sri Lanka</span>
+        </div>
+      </div>
+      <div class="about-content reveal reveal-delay-1">
+        <span class="accent-label">About Ideal E-Mall</span>
+        <h2 class="section-title">Quality Appliances,<br>Honest Service</h2>
+        <p class="body-text" style="font-size:17px;">We sell kitchen appliances and home essentials across Sri Lanka. Our focus is simple: quality products, clear information, and helping customers choose the right item.</p>
+        <p class="body-text">Located at 79 Avissawella Road, Wellampitiya, our store has been a trusted destination for families and businesses looking for reliable appliances at fair prices.</p>
+        <div class="about-points">
+          <div class="about-point"><div class="about-point-check">✓</div><span>Products from trusted brands including HOMEBASE, Sokany &amp; KROME</span></div>
+          <div class="about-point"><div class="about-point-check">✓</div><span>Full product guidance — we help you make the right decision</span></div>
+          <div class="about-point"><div class="about-point-check">✓</div><span>Islandwide delivery available for all purchases</span></div>
+          <div class="about-point"><div class="about-point-check">✓</div><span>Reachable via phone or WhatsApp for quick answers</span></div>
+        </div>
+        <a class="btn btn-primary" href="tel:+94740034125">
+          <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 8.81 19.79 19.79 0 01.01 2.18C.01 1.07.99.01 2.1.01h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.91 7.91a16 16 0 006.18 6.18l1.27-.45a2 2 0 012.11.45c.907.339 1.85.573 2.81.7A2 2 0 0121.99 16.92z"/></svg>
+          Call Us Now
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+
+<!-- CUSTOMER REVIEWS -->
+<section class="section reviews-section">
+  <div class="container">
+    <div class="section-header">
+      <span class="accent-label">Customer Reviews</span>
+      <h2 class="section-title">What Our Customers Say</h2>
+      <p class="body-text">Real experiences from real customers across Sri Lanka.</p>
+    </div>
+    <div class="reviews-grid" id="reviewsGrid">
+      <div class="review-card reveal">
+        <div class="review-header">
+          <div class="review-avatar av-orange">I</div>
+          <div><div class="review-name">IYAZ IHSAN</div></div>
+        </div>
+        <div class="review-stars">★★★★★</div>
+        <p class="review-text">I would give "Ideal e-mall" a perfect 5/5 for putting the needs of its customers first. When my HOMEBASE built-in cooker arrived, I was astounded by the quality, which exceeded my expectations. ❤️</p>
+      </div>
+      <div class="review-card reveal reveal-delay-1">
+        <div class="review-header">
+          <div class="review-avatar av-teal">D</div>
+          <div><div class="review-name">dark5un</div></div>
+        </div>
+        <div class="review-stars">★★★★★</div>
+        <p class="review-text">Overall very good experience from ordering to delivery. They were prompt and courteous at each step. The prices are very reasonable and they were knowledgeable enough to answer my many questions.</p>
+      </div>
+      <div class="review-card reveal reveal-delay-2">
+        <div class="review-header">
+          <div class="review-avatar av-violet">T</div>
+          <div><div class="review-name">Thisara Matharage</div></div>
+        </div>
+        <div class="review-stars">★★★★★</div>
+        <p class="review-text">I'm very happy about the 1st class service given by the Ideal E Mall to me. Highly recommended for anyone looking for household appliances!</p>
+      </div>
+    </div>
+    <div class="carousel-dots" id="reviewsDots">
+      <button class="carousel-dot active" onclick="goReviewSlide(0)"></button>
+      <button class="carousel-dot" onclick="goReviewSlide(1)"></button>
+      <button class="carousel-dot" onclick="goReviewSlide(2)"></button>
+    </div>
+  </div>
+</section>
+
+
+<!-- CONTACT -->
+<section class="section contact-section" id="contact">
+  <div class="container">
+    <div class="section-header">
+      <span class="accent-label">Get in Touch</span>
+      <h2 class="section-title">Contact Us</h2>
+      <p class="body-text">Happy to help you choose the right product or answer any questions.</p>
+    </div>
+    <div class="contact-inner">
+      <div class="contact-info reveal">
+        <div class="contact-item">
+          <div class="contact-item-icon">📍</div>
+          <div>
+            <div class="contact-item-label">Store Location</div>
+            <div class="contact-item-value">
+              <a href="https://www.google.com/maps/place/Ideal+E-Mall/@6.9444964,79.8776654,17z" target="_blank" rel="noopener" style="color:#fff;">79 Avissawella Road, Wellampitiya, Sri Lanka</a>
+            </div>
+          </div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-item-icon">📞</div>
+          <div>
+            <div class="contact-item-label">Phone</div>
+            <div class="contact-item-value"><a href="tel:+94740034125" style="color:#fff;">074 003 4125</a></div>
+          </div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-item-icon">💬</div>
+          <div>
+            <div class="contact-item-label">WhatsApp</div>
+            <div class="contact-item-value">
+              <a href="https://wa.me/94740034125?text=Hello%2C%20I%20would%20like%20more%20information%20about%20your%20products." target="_blank" rel="noopener">Message on WhatsApp</a>
+            </div>
+          </div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-item-icon">🕐</div>
+          <div>
+            <div class="contact-item-label">Store Hours</div>
+            <div class="contact-item-value">Mon – Sat: 9:00 AM – 7:00 PM</div>
+          </div>
+        </div>
+        <div class="contact-item">
+          <div class="contact-item-icon">📲</div>
+          <div>
+            <div class="contact-item-label">Follow Us</div>
+            <div class="contact-item-value" style="display:flex;gap:16px;flex-wrap:wrap;">
+              <a href="https://web.facebook.com/IdealEMall/" target="_blank" rel="noopener" style="color:var(--teal);">Facebook</a>
+              <a href="https://www.instagram.com/idealemall/" target="_blank" rel="noopener" style="color:var(--teal);">Instagram</a>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="contact-cta-box reveal reveal-delay-1">
+        <h3>Ready to find your perfect appliance?</h3>
+        <p>Chat with us on WhatsApp or give us a call. Our team is here to help you find the right product at the right price.</p>
+        <div class="contact-cta-buttons">
+          <a class="btn btn-whatsapp" href="https://wa.me/94740034125?text=Hello%2C%20I%20would%20like%20more%20information%20about%20your%20products." target="_blank" rel="noopener">
+            <svg width="16" height="16" fill="currentColor" viewBox="0 0 24 24"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347z"/><path d="M12 0C5.373 0 0 5.373 0 12c0 2.123.553 4.116 1.52 5.845L0 24l6.335-1.648A11.95 11.95 0 0012 24c6.627 0 12-5.373 12-12S18.627 0 12 0zm0 21.818a9.797 9.797 0 01-4.988-1.362l-.357-.212-3.758.977.999-3.658-.233-.376A9.79 9.79 0 012.182 12C2.182 6.57 6.57 2.182 12 2.182S21.818 6.57 21.818 12 17.43 21.818 12 21.818z"/></svg>
+            WhatsApp Us
+          </a>
+          <a class="btn btn-teal" href="tel:+94740034125">
+            <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 01-2.18 2 19.79 19.79 0 01-8.63-3.07A19.5 19.5 0 013.07 8.81 19.79 19.79 0 01.01 2.18C.01 1.07.99.01 2.1.01h3a2 2 0 012 1.72c.127.96.361 1.903.7 2.81a2 2 0 01-.45 2.11L6.91 7.91a16 16 0 006.18 6.18l1.27-.45a2 2 0 012.11.45c.907.339 1.85.573 2.81.7A2 2 0 0121.99 16.92z"/></svg>
+            Call Now
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer-inner">
+      <div class="footer-brand">
+        <div class="footer-logo">
+          <div class="footer-logo-icon">IE</div>
+          <div class="footer-logo-text">Ideal <span>E-Mall</span></div>
+        </div>
+        <p>Your trusted kitchen appliances and home essentials store in Wellampitiya, Sri Lanka. Quality products, clear information, and helpful service.</p>
+      </div>
+      <div>
+        <div class="footer-col-title">Quick Links</div>
+        <div class="footer-links">
+          <a class="footer-link" href="index.html">Home</a>
+          <a class="footer-link" href="products.html">Products</a>
+          <a class="footer-link" href="#about">About Us</a>
+          <a class="footer-link" href="#contact">Contact</a>
+          <a class="footer-link" href="cart.html">🛒 Cart</a>
+        </div>
+      </div>
+      <div>
+        <div class="footer-col-title">Contact</div>
+        <div class="footer-contact-item">📍 <a href="https://www.google.com/maps/place/Ideal+E-Mall/@6.9444964,79.8776654,17z" target="_blank" rel="noopener">79 Avissawella Road, Wellampitiya</a></div>
+        <div class="footer-contact-item">📞 <a href="tel:+94740034125">074 003 4125</a></div>
+        <div class="footer-contact-item">💬 <a href="https://wa.me/94740034125" target="_blank" rel="noopener" style="color:#25D366;">WhatsApp</a></div>
+        <div class="footer-contact-item">📘 <a href="https://web.facebook.com/IdealEMall/" target="_blank" rel="noopener">Facebook</a></div>
+        <div class="footer-contact-item">📸 <a href="https://www.instagram.com/idealemall/" target="_blank" rel="noopener">Instagram</a></div>
+      </div>
+    </div>
+    <div class="footer-bottom">
+      <p>© 2025 Ideal E-Mall. All rights reserved. Wellampitiya, Sri Lanka.</p>
+    </div>
+  </div>
+</footer>
+
+<button class="back-to-top" id="backToTop" aria-label="Back to top">
+  <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M5 15l7-7 7 7"/></svg>
+</button>
+
+<script src="js/data.js"></script>
+<script src="js/cart.js"></script>
+<script src="js/home.js"></script>
+</body>
+</html>
